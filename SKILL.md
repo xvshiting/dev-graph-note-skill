@@ -1,13 +1,22 @@
 ---
 name: dev-graph-note-skill
-description: Use when starting development work, debugging, fixing bugs, making architectural or technical decisions, discovering project conventions, learning a codebase, or when significant development insights emerge (bug solutions, non-obvious pitfalls, architectural tradeoffs). Loads and maintains a dev-notes knowledge base with four processing layers and bidirectional linking. Auto-creates dev-notes/ if missing. Supports project-local and global (~/.dev-notes/) knowledge bases.
+description: Use for ANY development task. Before writing code, check dev-notes/ for context. When solving bugs, making decisions, or discovering insights, write to dev-notes/. Auto-creates dev-notes/ if missing. Maintains a four-layer knowledge base (raw → refined → zettel → methodology) with bidirectional linking and project-global (~/.dev-notes/) support.
 ---
 
 # Dev Graph Note Skill
 
 项目中和跨项目的开发知识体系，四层加工 + 双链结构。
 
-## 核心原则
+## ⚠️ 强制执行规则
+
+本 skill 不是可选参考，以下是必须遵守的执行规则：
+
+1. **每次开发任务开始前**：检查项目中是否存在 `dev-notes/`，不存在则立即创建目录结构和 INDEX.md
+2. **每次开发任务开始前**：读取 `dev-notes/INDEX.md` 了解项目上下文和待办事项
+3. **遇到触发写入的场景**（见"何时写入笔记"）**必须记笔记**，不可跳过
+4. **任务完成后**：检查是否需要更新 INDEX.md 中的索引和待办
+
+核心原则：
 
 1. **先读后做**：开始开发任务前，先从 dev-notes 加载上下文
 2. **随手记**：产生有价值的发现时，立即记录到 raw/

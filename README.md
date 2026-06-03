@@ -107,22 +107,55 @@ See the [opencode skill docs](https://opencode.ai) for the expected URL format.
 dev-graph-note-skill/
 ├── SKILL.md                    # Skill definition (frontmatter + instructions)
 ├── references/
-│   └── note-templates.md       # Note templates for each layer + INDEX.md
+│   ├── AGENTS.md               # AGENTS.md template — add this to your project!
+│   ├── template-raw.md          # Raw note template
+│   ├── template-refined.md      # Refined document template
+│   ├── template-zettel.md       # Zettel (atomic note) template
+│   ├── template-methodology.md  # Methodology template
+│   └── template-index.md        # INDEX.md template
 └── scripts/
     └── init.sh                  # Initialize dev-notes/ directory structure
 ```
 
 ## Quick start
 
-After installing the skill, the agent will automatically:
+> **重要**：仅安装 skill 不够。Agent 不会主动加载 skill，需要配合 AGENTS.md 指令才能确保每次开发任务都走 dev-notes 流程。见下方"关键步骤"。
 
-1. Create `dev-notes/` in your project if it doesn't exist
-2. Read `dev-notes/INDEX.md` before starting development work
-3. Write notes when bugs are solved, decisions are made, or insights emerge
-4. Link notes across layers with `[[...]]` syntax
-5. Maintain `INDEX.md` with a todo aggregation section
+### 关键步骤
 
-You can also manually initialize:
+Skill 是被动的——只有模型判定描述匹配时才加载，且加载后可能不执行初始化和写笔记。要确保 dev-notes 工作流生效，需要**双保险**：
+
+1. **安装 skill**（定义规范和模板）
+2. **添加 AGENTS.md 指令**（强制 agent 每次会话都检查和写入 dev-notes）
+
+```bash
+# 1. 安装 skill（选一种方式，见上方 Installation）
+cp -r /path/to/dev-graph-note-skill .opencode/skills/dev-graph-note-skill
+
+# 2. 添加 AGENTS.md 指令到你的项目（关键！）
+cat dev-graph-note-skill/references/AGENTS.md >> AGENTS.md
+```
+
+AGENTS.md 模板在 `references/AGENTS.md`，它告诉 agent：
+- 每次开发任务前必须检查/创建 `dev-notes/` 并读取 INDEX.md
+- 遇到 bug 解决、技术决策、踩坑等场景必须写笔记
+- 任务结束后更新 INDEX.md
+
+### Without AGENTS.md
+
+如果你只安装 skill 不加 AGENTS.md，agent 可能：
+- 不自动创建 `dev-notes/` 目录
+- 干活时不记笔记（专注编码任务而跳过记录步骤）
+
+### With AGENTS.md
+
+AGENTS.md 的指令会在每次会话中生效，agent 会：
+1. 自动检查并创建 `dev-notes/` 目录结构
+2. 开发前读取 INDEX.md 获取上下文
+3. 在开发过程中写入笔记
+4. 任务结束时更新 INDEX.md
+
+你也可以手动初始化：
 
 ```bash
 bash /path/to/dev-graph-note-skill/scripts/init.sh .
