@@ -30,3 +30,19 @@
 任务结束后，更新 `dev-notes/INDEX.md` 中的索引和待办区。
 
 跨项目通用知识（框架踩坑、通用调试方法等）写入 `~/.dev-notes/`。
+
+---
+
+## 从 raw 提炼 refined 的规则
+
+**重要**：一个 raw 文件可以从不同视角拆分成多个 refined，每个聚焦一个主题。
+
+**示例**：
+- `raw/会议记录.md` → `refined/决策点.md` + `refined/行动项.md` + `refined/问题清单.md`
+- `raw/技术调研.md` → `refined/技术对比.md` + `refined/选型决策.md` + `refined/实现细节.md`
+
+**拆分原则**：
+1. 每个 refined 聚焦一个明确的主题/视角
+2. 在 frontmatter 中记录 `source: "[[raw/xxx]]"`
+3. 更新 INDEX.md，添加所有新 refined 的索引
+4. 在"最近变更"中说明拆分情况

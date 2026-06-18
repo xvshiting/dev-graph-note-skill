@@ -1,6 +1,6 @@
 # dev-graph-note-skill
 
-A coding agent skill that maintains a structured dev-notes knowledge base with four processing layers and bidirectional linking. It auto-creates `dev-notes/` when missing and supports project-local + global (`~/.dev-notes/`) knowledge bases.
+A coding agent skill that maintains a structured dev-notes knowledge base with four processing layers and bidirectional linking. Inspired by [Karpathy's LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) pattern.
 
 ## How it works
 
@@ -9,11 +9,20 @@ A(raw) ──整理──▶ B(refined) ──提取──▶ C(zettel) ──�
 开发日志/bug记录   结构化文档         单一概念卡片         可复用检查清单/框架
 ```
 
-- **raw/** — raw development logs, bug records, meeting notes
-- **refined/** — structured documents distilled from raw
+- **raw/** — raw development logs, bug records, meeting notes (immutable sources)
+- **refined/** — structured documents distilled from raw (one raw → many refined possible)
 - **zettel/** — atomic concept cards with bidirectional links (≤300 words each)
 - **methodology/** — reusable checklists and frameworks abstracted from zettels
 - **INDEX.md** — entry point with overview, index, and todo aggregation
+
+### Key Insight: One raw → Many refined
+
+Unlike traditional note-taking, a single raw file can be split into multiple refined documents, each focusing on a different dimension:
+
+**Example**:
+- `raw/meeting-notes.md` → `refined/decisions.md` + `refined/action-items.md` + `refined/questions.md`
+
+This follows Karpathy's insight: knowledge is compiled once and kept current, not re-derived on every query.
 
 Notes link across layers with `[[path/filename]]` wiki-style links. Todos live inside notes (not as separate files), keeping context with action items.
 
